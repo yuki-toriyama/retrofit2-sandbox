@@ -2,12 +2,14 @@ package com.example.retrofit2_sandbox
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit2_sandbox.data.MainViewState
 
 class MainActivity : AppCompatActivity() {
+    private val adapter = MarsPropertyAdapter()
+
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
@@ -22,15 +24,18 @@ class MainActivity : AppCompatActivity() {
         viewModel.viewState.observe(this) {
             viewStateHandler(it)
         }
+
+        findViewById<RecyclerView>(R.id.recyclerView).adapter = adapter
     }
 
     private fun viewStateHandler(viewState: MainViewState) {
         when (viewState) {
             is MainViewState.Success -> {
-                findViewById<TextView>(R.id.text_field).text = viewState.list.toString()
+                adapter.data = viewState.list
+                adapter.notifyDataSetChanged()
             }
             is MainViewState.Error -> {
-                findViewById<TextView>(R.id.text_field).text = viewState.message
+                println(viewState.message)
             }
         }
     }

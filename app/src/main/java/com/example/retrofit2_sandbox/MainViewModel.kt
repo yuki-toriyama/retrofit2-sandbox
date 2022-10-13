@@ -1,9 +1,13 @@
 package com.example.retrofit2_sandbox
 
+import android.media.Image
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
 import com.example.retrofit2_sandbox.data.MainViewState
 import com.example.retrofit2_sandbox.data.MarsApiService
 import com.squareup.moshi.Moshi
